@@ -1,0 +1,71 @@
+{
+  "template" : "log-*",
+  "settings" : {
+    "index.refresh_interval" : "60s",
+    "number_of_shards" : 5,
+    "number_of_replicas" : 0
+  },
+  "mappings" : {
+    "_default_" : {
+      "_all" : {"enabled" : true, "omit_norms" : true},
+      "dynamic_templates" : [ {
+        "message_field" : {
+          "match" : "message",
+          "match_mapping_type" : "string",
+          "mapping" : {
+            "type" : "text", "index" : "analyzed", "omit_norms" : true,
+            "fielddata" : true,"ignore_malformed" : true
+          }
+        }
+      }, {
+        "text_fields" : {
+          "match" : "*",
+          "match_mapping_type" : "string",
+          "mapping" : {
+            "type" : "keyword", "index" : "analyzed", "omit_norms" : true,
+            "fielddata" : true,"ignore_malformed" : true,
+            "fields" : {
+		"raw" : {"type": "text", "index" : "true"}
+            }
+          }
+        }
+      } ],
+      "properties" : {
+        "@timestamp": { "type": "date", "doc_values" : true },
+	"url" : { "type" : "keyword","index" : "true", "include_in_all": false },
+        "level" : { "type" : "keyword", "index" : "true" , "doc_values" : "true", "store" : "false" },
+        "log_message" : { "type" : "keyword", "index" : "true" , "doc_values" : "true", "store" : "false" },
+        "module" : { "type" : "keyword", "index" : "true" , "doc_values" : "true", "store" : "false" },
+        "type" : { "type" : "keyword", "index" : "true" , "doc_values" : "true", "store" : "false"},
+	"log_host" : { "type" : "keyword", "index" : "true" , "doc_values" : "true", "store" : "false"},
+	"requestId" : { "type" : "keyword", "index" : "true" , "doc_values" : "true", "store" : "false"},
+	"sessionId" : { "type" : "keyword", "index" : "true" , "doc_values" : "true", "store" : "false"},
+	"uuId" : { "type" : "keyword", "index" : "true" , "doc_values" : "true", "store" : "false"},
+	"server_group" : { "type" : "keyword", "index" : "true", "doc_values" : "true", "store" : "false" },
+        "description" : { "type" : "keyword", "index" : "true", "doc_values" : "true", "store" : "false" },
+        "field1" : { "type" : "keyword", "index" : "true", "doc_values" : "true", "store" : "false" },
+        "field2" : { "type" : "keyword", "index" : "true" , "doc_values" : "true", "store" : "false" },
+        "field3" : { "type" : "keyword", "index" : "true" , "doc_values" : "true", "store" : "false" },
+        "field4" : { "type" : "keyword", "index" : "true" , "doc_values" : "true", "store" : "false" },
+        "field5" : { "type" : "keyword", "index" : "true" , "doc_values" : "true", "store" : "false" },
+        "field6" : { "type" : "keyword", "index" : "true" , "doc_values" : "true", "store" : "false" },
+        "field7" : { "type" : "keyword", "index" : "true" , "doc_values" : "true", "store" : "false" },
+        "field8" : { "type" : "keyword", "index" : "true" , "doc_values" : "true", "store" : "false" },
+        "field9" : { "type" : "keyword", "index" : "true" , "doc_values" : "true", "store" : "false" },
+        "field10" : {"type" : "keyword", "index" : "true" , "doc_values" : "true", "store" : "false" },
+        "field11" : {"type" : "keyword", "index" : "true" , "doc_values" : "true", "store" : "false" },
+        "field12" : {"type" : "keyword", "index" : "true" , "doc_values" : "true", "store" : "false" },
+        "field13" : {"type" : "keyword", "index" : "true" , "doc_values" : "true", "store" : "false" },
+        "field14" : {"type" : "keyword", "index" : "true" , "doc_values" : "true", "store" : "false" },
+        "field15" : {"type" : "keyword", "index" : "true" , "doc_values" : "true", "store" : "false" },
+        "channel" : {"type" : "keyword", "index" : "true" , "doc_values" : "true", "store" : "false" },
+        "time_taken" : {"type" : "float", "index" : "true" , "doc_values" : "true", "store" : "false" },
+        "num_field1" : {"type" : "float", "index" : "true" , "doc_values" : "true", "store" : "false" },
+        "num_field2" : {"type" : "float", "index" : "true" , "doc_values" : "true", "store" : "false" },
+        "num_field3" : {"type" : "float", "index" : "true" , "doc_values" : "true", "store" : "false" },
+        "num_field4" : {"type" : "float", "index" : "true" , "doc_values" : "true", "store" : "false" },
+        "error_name" : { "type" : "keyword", "index" : "true" , "doc_values" : "true", "store" : "false" }
+        }
+      }
+    }
+}
